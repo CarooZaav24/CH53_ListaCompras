@@ -6,6 +6,7 @@ let alertValidaciones = document.getElementById("alertValidaciones");
 let tablaListaCompras = document.getElementById("tablaListaCompras");
 const cuerpoTabla = tablaListaCompras.getElementsByTagName("tbody").item(0);
 
+
 const contadorProductos = document.getElementById("contadorProductos");
 const productosTotal = document.getElementById("productosTotal");
 const precioTotal = document.getElementById("precioTotal");
@@ -15,6 +16,7 @@ let cont = 0; //Numeración de la primera columna de la tabla.
 let costoTotal = 0;
 let totalEnProductos = 0;
 let datos = []; //almacena los elementos de la tabla (productos)
+let btnClear = document.getElementById("btnClear");
 
 function validarCantidad() {
   if (txtNumber.value.trim().length <= 0) {
@@ -133,3 +135,41 @@ window.addEventListener("load", function (event) {
   productosTotal.innerText = totalEnProductos;
   contadorProductos.innerText = cont;
 }); // window add event listener load
+
+//Agregar la funcionalidad de limpiar todo 
+//resumen 
+//tabla 
+//campos 
+//alerta 
+//localStorage
+btnClear.addEventListener("click", function (event) {
+    event.preventDefault();
+  
+    // Limpiar la tabla:
+    cuerpoTabla.innerHTML = "";
+  
+    // Reiniciamos los valores de las variables: 
+    cont = 0;
+    totalEnProductos = 0;
+    costoTotal = 0;
+    datos = [];
+  
+    
+    txtName.value = "";//limpiar el campo del nombre 
+    txtNumber.value = "";//limpiar el campo de la cant 
+    txtName.style.border = ""; // le quitamos el estilo de borde al campo del nombre 
+    txtNumber.style.border = ""; // le quitamos el estilo al campo de la cant
+  
+    //quitar las alertas
+    alertValidaciones.style.display = "none";
+    alertValidacionesTexto.innerHTML = "";
+  
+    //limpiar el localStorage
+    localStorage.removeItem("datos");
+    localStorage.removeItem("resumen");
+  
+    // Reiniciar resumen
+    contadorProductos.innerText = "0";
+    productosTotal.innerText = "0";
+    precioTotal.innerText = "$0";
+  });
